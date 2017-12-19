@@ -1,21 +1,23 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { DataService } from '../../services/data.service';
+import { Post } from '../../models/post.model';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.css']
 })
-export class AppComponent implements OnInit {
+export class UserComponent implements OnInit {
   name: string;
   age: number;
   email: string;
   address: Address;
   hobbies: string[];
   isHobbiesShown: boolean;
+  posts: Post[];
 
-  contructor() {
-  }
+  constructor(private data: DataService) { }
 
   ngOnInit() {
     this.name = 'Carlos';
@@ -27,11 +29,19 @@ export class AppComponent implements OnInit {
       country: 'Perú'
     };
     this.hobbies = ['Escuchar música', 'Tocar guitarra', 'Jugar tenis'];
+    this.data.getPosts().subscribe(res => {
+      this.posts = res;
+    });
   }
 
-  toggleHobbies() { 
+  toggleHobbies() {
     this.isHobbiesShown = !this.isHobbiesShown;
   }
+
+  addHobby(hobby: string) {
+    this.hobbies.push(hobby);
+  }
+
 
 }
 
@@ -40,3 +50,4 @@ interface Address {
   city: string;
   country: string;
 }
+

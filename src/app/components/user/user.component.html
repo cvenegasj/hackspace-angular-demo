@@ -1,0 +1,56 @@
+<h1>{{name}}</h1>
+<ul>
+  <li>
+    Edad: {{age}}
+  </li>
+  <li>
+    Email: {{email}}
+  </li>
+  <li>
+    Address: {{address.street}}, {{address.city}}, {{address.country}}
+  </li>
+</ul>
+
+<button mat-raised-button color="accent" (click)="toggleHobbies()">Show hobbies</button>
+
+<div *ngIf="isHobbiesShown">
+  <h2>Hobbies</h2>
+  <form (ngSubmit)="addHobby(hobby.value)">
+  New hobby: <input type="text" #hobby />
+  </form>
+
+  <ul>
+    <li *ngFor="let item of hobbies">
+      {{item}}
+    </li>
+  </ul>
+</div>
+
+<div>
+  <h2>Edit User</h2>
+  <form>
+    <div>
+      <label for="name">Name:</label>
+      <input [(ngModel)]="name" name="name" />
+    </div>
+    <div>
+      <label for="age">Edad:</label>
+      <input [(ngModel)]="age" name="age" />
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input [(ngModel)]="email" name="email" />
+    </div>
+  </form>
+</div>
+
+<div>
+  <h2>Posts</h2>
+  <div *ngFor="let item of posts">
+    <h3>{{item.title}}</h3>
+    <p>{{item.body}}</p>
+    <hr />
+  </div>
+</div>
+
+
